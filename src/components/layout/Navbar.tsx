@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,6 +31,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openDropdown = (href: string) => {
+    if (leaveTimer.current) clearTimeout(leaveTimer.current);
+    setActiveDropdown(href);
+  };
+
+  const closeDropdown = () => {
+    leaveTimer.current = setTimeout(() => setActiveDropdown(null), 120);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -79,8 +89,8 @@ export default function Navbar() {
                 {link.children ? (
                   <div
                     className="relative"
-                    onMouseEnter={() => setActiveDropdown(link.href)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    onMouseEnter={() => openDropdown(link.href)}
+                    onMouseLeave={closeDropdown}
                   >
                     <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white/80 hover:text-[#E0B860] transition-colors rounded-lg">
                       {link.label}
@@ -92,8 +102,8 @@ export default function Navbar() {
                       />
                     </button>
                     {activeDropdown === link.href && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-56 rounded-xl bg-[#050C1A] border border-white/10 shadow-xl shadow-black/40 overflow-hidden">
-                        <div className="py-1">
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-56 rounded-xl bg-[#050C1A] border border-white/10 shadow-xl shadow-black/40 overflow-hidden">
+                        <div className="pt-2 pb-1">
                           {link.children.map((child) => (
                             <Link
                               key={child.href}
