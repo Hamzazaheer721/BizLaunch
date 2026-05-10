@@ -76,7 +76,7 @@ export async function submitContact(
   if (process.env.RESEND_API_KEY) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? `${COMPANY_NAME} Website <noreply@bizlaunch.com>`,
+      from: process.env.RESEND_FROM_EMAIL ?? `${COMPANY_NAME} Website <noreply@bizlaunchcsp.com>`,
       to: [EMAIL],
       replyTo: parsed.data.email,
       subject: `New Contact: ${parsed.data.name} — ${parsed.data.service ?? "General Enquiry"}`,
