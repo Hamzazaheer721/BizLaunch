@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors */
+  --color-navy-950: #050C1A;
+  --color-navy-900: #0A1628;
+  --color-navy-800: #0F2040;
+  --color-navy-700: #163058;
+  --color-navy-600: #1E4080;
+  --color-gold-600: #A67C2A;
+  --color-gold-500: #C9963B;
+  --color-gold-400: #E0B860;
+  --color-gold-300: #EDD080;
+
+  /* Typography */
+  --font-sans: var(--font-jakarta);
+  --font-heading: var(--font-syne);
+
+  /* Custom spacing */
+  --spacing-section: 5rem;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #0A1628;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animated gradient mesh for hero */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-mesh {
+  background: linear-gradient(
+    135deg,
+    #050C1A 0%,
+    #0A1628 25%,
+    #0F2040 50%,
+    #163058 75%,
+    #050C1A 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Gold shimmer text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #C9963B 0%, #E0B860 50%, #C9963B 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* WhatsApp pulse */
+@keyframes whatsappPulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-pulse {
+  animation: whatsappPulse 2s ease-out infinite;
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050C1A; }
+::-webkit-scrollbar-thumb { background: #C9963B; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #E0B860; }
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #C9963B;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .gradient-mesh { animation: none; }
+  .text-gradient-gold { animation: none; }
+}
